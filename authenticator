@@ -1,1 +1,36 @@
+users = [
+  { username: 'Anthony', password: 'Mackey1' },
+  { username: 'Robert', password: 'DeNiro2' },
+  { username: 'Hugh', password: 'jackMan3' },
+  { username: 'Katrina', password: 'Wiedman4' },
+  { username: 'marinersAlways', password: 'maybeNextYear5' }
+]
 
+def auth_user(username, password, list_of_users)
+  list_of_users.each do |user_record|
+    return user_record if user_record[:username] == username && user_record[:password] == password
+  end
+  'Credentials were not correct'
+end
+
+puts 'Welcome to the Authenticator'
+32.times { print '-' }
+puts
+puts 'This program will take input from the user and compare password'
+puts 'If the password is correct, you will get back the user object'
+
+attempts = 1
+while attempts < 4
+  print 'Username: '
+  username = gets.chomp
+  print 'Password: '
+  password = gets.chomp
+  authentification = auth_user(username, password, users)
+  puts authentification
+  puts 'Press n to quit or any other key to continue: '
+  input = gets.chomp.downcase
+  break if input == 'n'
+
+  attempts += 1
+end
+puts 'You have exceeded the number of attempts' if attempts == 4
